@@ -1,0 +1,21 @@
+
+RUN conda install --freeze-installed --yes mamba \
+    && conda config --add channels conda-forge \
+    && conda config --add channels pyviz \
+    && conda config --set channel_priority strict
+
+# SHELL ["/bin/bash", "-c"]
+COPY ./docker/${yaml_nm} ./
+
+# Conda replaced by Mamba
+RUN mamba env update -n base --quiet --file ./${yaml_nm} \
+    && conda clean --all --yes --force-pkgs-dirs \
+    && find /opt/conda/ -follow -type f -name '*.a' -delete \
+    && find /opt/conda/ -follow -type f -name '*.pyc' -delete \
+    && find /opt/conda/ -follow -type f -name '*.js.map' -delete \
+#    && find /opt/conda/lib/python*/site-packages/bokeh/server/static \
+#       -follow -type f -name '*.js' ! -name '*.min.js' -delete \
+    && pip cache purge \
+    && rm -rf /home/$NB_USER/.cache/pip \ 
+    && rm ./${yaml_nm}
+

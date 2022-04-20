@@ -1,0 +1,61 @@
+# syntax = edrevo/dockerfile-plus
+# To make the above work, you need to add 
+# `export DOCKER_BUILDKIT=1` (without the back-tics)
+# to your .rc (.zshrc/.bashrc) file
+
+# In find this syntax quite useful for building and tagging in one go:
+# > export IMG_NM=ethos:0.1 && docker image build --tag jreades/${IMG_NM} --compress --file ./docker/Dockerfile.master .
+# How to push an updated image
+# > docker login docker.io
+# > docker push jreades/${IMG_NM}
+
+#--- Build from Jupyter-provided Minimal Install ---#
+# https://github.com/jupyter/docker-stacks/blob/master/docs/using/selecting.md
+# Early February 2022
+FROM jupyter/scipy-notebook:lab-3.2.9
+
+LABEL maintainer="j.reades@ucl.ac.uk"
+
+ENV yaml_nm 'nlp-light.install.yml'
+ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
+
+#--- GCC ---#
+USER root
+RUN apt-get update -y \
+    && apt-get install -y gcc g++ 
+
+#--- Python ---#
+USER $NB_UID
+INCLUDE+ docker/Dockerfile.python.install
+
+ENV PATH /opt/conda/bin:$PATH
+ENV PROJ_LIB /opt/conda/share/proj/
+
+#--- JupyterLab config ---#
+USER root
+INCLUDE+ docker/Dockerfile.jupyterlab.extensions
+
+# Pre-cache fonts
+RUN /opt/conda//bin/python -c "import matplotlib.pyplot;"
+
+# Fix permissions
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions $HOME
+
+# Set up code formatting cache
+USER $NB_UID
+RUN mkdir -p "/home/$NB_USER/.cache/black/$(black --version | cut -d ' ' -f 3)" \
+    && black $(find /opt/conda/lib -name "black.py") \ 
+    && /opt/conda//bin/python -c "import logging; logging.basicConfig(level='INFO'); import black"  
+
+# Fix permissions
+USER root
+RUN fix-permissions $CONDA_DIR \
+    && fix-permissions $HOME
+
+#--- Configure startup params ---#
+# Switch back to user to avoid accidental container runs as root
+USER $NB_UID
+
+RUN echo "export PROJ_LIB=/opt/conda/share/proj/" >> ~/.bashrc
+

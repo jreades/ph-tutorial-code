@@ -1,0 +1,16 @@
+RUN rm -rf "/home/${NB_USER}/.cache/yarn"
+
+# Most jupyterlab extensions are now installed via 
+# python packages (conda or pip) so this is now 
+# pretty minimal.
+
+# Add anything you need to build after this next line
+RUN jupyter lab clean 
+
+# Clean up
+RUN jupyter lab clean -y \
+    && conda clean --all -f -y \
+    && npm cache clean --force \
+    && rm -rf $CONDA_DIR/share/jupyter/lab/staging \
+    && rm -rf "/home/${NB_USER}/.node-gyp" \
+    && rm -rf /home/$NB_USER/.cache/yarn

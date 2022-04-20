@@ -1,0 +1,66 @@
+# OVERVIEW
+# This YAML script will attempt to install a Python virtual environment able to
+# support the requirements of EThOS NLP and PDF processing.
+#
+# CONFIGURATION PARAMETERS
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - pip
+  - black 
+  - bokeh 
+  - clustergram 
+  - click<8.0
+  - cmake<3.20
+  - cython
+  - descartes
+  - editdistance
+  - feather-format # Python <-> R data structures
+  - gensim
+  - geopandas 
+  - geopy 
+  - hdbscan
+  - icecream
+  - ipympl 
+  - ipyleaflet 
+  - ipyparallel 
+  - ipywidgets 
+  - jupyterlab_code_formatter # Supports labextension
+  - jupyterlab-geojson
+  - jupyterlab-mathjax3
+  - jupyterlab_widgets
+  - jupyter-lsp
+  - jupyter-lsp-python # Provides LSP Extension + Server
+  - legendgram 
+  - lxml
+  - mkl-service 
+  - nbdime 
+  - nltk
+  - palettable
+  - pandas
+  - plotly 
+  - polyline 
+  - qgrid
+  - scipy
+  - scikit-learn
+  - seaborn
+  - tabulate  # For exporting from pandas to markdown
+  - textblob
+  - tzlocal 
+  - umap-learn
+  - xlrd
+  - openpyxl
+  - xlsxwriter
+  - pip:
+    - contractions
+    - dtreeviz
+    - joypy
+    - jupytext
+    - kneed
+    - num2words
+    - polyglot
+    - python-Levenshtein
+    - top2vec
+    - wordcloud
+    - unidecode
