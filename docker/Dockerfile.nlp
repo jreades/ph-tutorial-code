@@ -16,7 +16,7 @@ FROM jupyter/scipy-notebook:lab-3.2.9
 
 LABEL maintainer="j.reades@ucl.ac.uk"
 
-ENV yaml_nm 'nlp-light.install.yml'
+ENV yaml_nm 'nlp.install.yml'
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 
 #--- GCC ---#
