@@ -6,7 +6,7 @@ You will need [Docker](https://www.docker.com) (Desktop) to be able to install t
 
 Once you’ve installed the Docker application you can then install this container by opening up a Shell/Terminal and simply running:
 
-> `docker pull jreades/ph:latest` 
+> `docker pull jreades/ph-light:v0.4` 
 
 **Note**: if you wanted a specific version of the image then you could change the `latest`  bit to the version that you want. You can see the list of available images here: [hub.docker.com/repository/docker/jreades/ph](https://hub.docker.com/repository/docker/jreades/ph)
 
@@ -16,7 +16,7 @@ Once you’ve installed the Docker application you can then install this contain
 
 The container can be run in the Shell or Terminal as:
 
-> `docker run --name ph --rm -ti -p 8888:8888 -v "$(pwd):/home/jovyan/work" jreades/ph:latest jupyter lab --LabApp.password='' --ServerApp.password='' --NotebookApp.token=''`
+> `docker run --name ph --rm -ti -p 8888:8888 -v "$(pwd):/home/jovyan/work" jreades/ph-light:v0.4 jupyter lab --LabApp.password='' --ServerApp.password='' --NotebookApp.token=''`
 
 **Note**: the `pwd` in the command above means use the _current_ directory. So if you simply open a Terminal, Git Bash, or Command Prompt then Docker will 'mount' (_i.e._ make visible to the programming environment) the current directory as `work` in the programming environment. This is most likely to be your home directory and means that _everything_ in your home directory is potentially delete-able or write-able and that is a major security risk. I would _strongly_ suggest that you `cd` (Change Directory) to a sub-folder along the lines of `./Documents/code/` so that you have the link `work <-> code` between the virtual machine that Docker is running and your computer (which is the 'host'). Obviously, this assumes that you've created a `code` directory in your Documents folder and you can revise according to what you have done instead!
 
@@ -49,20 +49,4 @@ docker ps -aq # Get list of running processes and work out container IDs to remo
 docker rm -f <list of container IDs>
 docker images # Get list of available images and work out image IDs to remove
 docker rmi -f <list of image IDs>
-```
-
-## Citing
-
-This draws on Dani Arribas-Bel's foundational work for the University of Liverpool. If you use this, you should also cite him.
-
-[![DOI](https://zenodo.org/badge/65582539.svg)](https://zenodo.org/badge/latestdoi/65582539)
-
-```bibtex
-@software{hadoop,
-  author = {{Dani Arribas-Bel}},
-  title = {\texttt{gds_env}: A containerised platform for Geographic Data Science},
-  url = {https://github.com/darribas/gds_env},
-  version = {3.0},
-  date = {2019-08-06},
-}
 ```
