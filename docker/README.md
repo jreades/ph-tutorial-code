@@ -6,7 +6,7 @@ You will need [Docker](https://www.docker.com) (Desktop) to be able to install t
 
 Once you’ve installed the Docker application you can then install this container by opening up a Shell/Terminal and simply running:
 
-> `docker pull jreades/ph-light:v0.4` 
+> `docker pull jreades/ph:light-latest` 
 
 **Note**: if you wanted a specific version of the image then you could change the `latest`  bit to the version that you want. You can see the list of available images here: [hub.docker.com/repository/docker/jreades/ph](https://hub.docker.com/repository/docker/jreades/ph)
 
@@ -16,7 +16,7 @@ Once you’ve installed the Docker application you can then install this contain
 
 The container can be run in the Shell or Terminal as:
 
-> `docker run --name ph --rm -ti -p 8888:8888 -v "$(pwd):/home/jovyan/work" jreades/ph-light:v0.4 jupyter lab --LabApp.password='' --ServerApp.password='' --NotebookApp.token=''`
+> `docker run --name ph --rm -ti -p 8888:8888 -v "$(pwd):/home/jovyan/work" jreades/ph:light-latest jupyter lab --LabApp.password='' --ServerApp.password='' --NotebookApp.token=''`
 
 **Note**: the `pwd` in the command above means use the _current_ directory. So if you simply open a Terminal, Git Bash, or Command Prompt then Docker will 'mount' (_i.e._ make visible to the programming environment) the current directory as `work` in the programming environment. This is most likely to be your home directory and means that _everything_ in your home directory is potentially delete-able or write-able and that is a major security risk. I would _strongly_ suggest that you `cd` (Change Directory) to a sub-folder along the lines of `./Documents/code/` so that you have the link `work <-> code` between the virtual machine that Docker is running and your computer (which is the 'host'). Obviously, this assumes that you've created a `code` directory in your Documents folder and you can revise according to what you have done instead!
 
