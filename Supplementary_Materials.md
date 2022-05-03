@@ -61,6 +61,12 @@ In Table 5 are the top-10 most similar words for an array of other terms, demons
 
 ## Measuring Success
 
+One of the standard approaches in Machine Learning to quantifying the performance of a classifier model is the [Confusion Matrix](https://en.wikipedia.org/wiki/Confusion_matrix) in which:
+
+> Each row of the [matrix](https://en.wikipedia.org/wiki/Matrix_(mathematics)) represents the instances in an actual class while each column represents the instances in a predicted class
+
+So if the embdding+UMAP+cluster approach works well, the the predicted class should be largely the same as the actual class. If we were to lay this out in a table with actual DDC in the row labels and predicted cluster in the column lables then we should have entries _mainly_ on the diagonal where the row and column labels are the same. 
+
 #### Confusion matrix (2 Clusters)
 
 But we can also investigate this result in a more nuanced way using something called the Confusion Matrix and Classifiction Report. Recall that the DDC plot in Figure 3 shows some Social Science theses clearly mapped on to the Science-like space. Here we make use of the derived cluster label to compare the DDC label to the cluster-derived one!
